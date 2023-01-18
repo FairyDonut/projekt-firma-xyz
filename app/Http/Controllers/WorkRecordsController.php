@@ -13,6 +13,17 @@ class WorkRecordsController extends Controller
         [
             'lista' => $list
         ]);
+    }
 
+    public function details($id){
+        return $id;
+    }
+
+    public function create(){
+        return view('workRecordsCreate');
+    }
+
+    public function store(){
+        return redirect('workrecords');
     }
 }
