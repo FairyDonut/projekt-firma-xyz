@@ -7,17 +7,11 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
-    public function show($id){
-        return $id;
-    }
     public function index(){
-        $user_list = User::all();
-        error_log($user_list);
+        $users = User::all();
         return view('users',
          [
-             'listuser' => $user_list
+             'users' => $users
          ]);
-
      }
-
 }
