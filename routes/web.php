@@ -29,6 +29,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('users', [UsersController::class, 'index'])->middleware('role:Admin')->name('users');
 
+    Route::get('users/create', [UsersController::class, 'create'])->middleware('role:Admin')->name('usersCreate');
+
+    Route::post('users/create', [UsersController::class, 'createStore'])->middleware('role:Admin');
+
+    Route::get('users/{id}', [UsersController::class, 'details'])->middleware('role:Admin')->name('usersDetails');
+
+    Route::post('users/{id}', [UsersController::class, 'detailsStore'])->middleware('role:Admin');
+
     Route::get('workrecords', [WorkRecordsController::class, 'index'])->middleware('role:Admin,Manager,Worker')->name('workrecords');
 
     Route::get('workrecords/create', [WorkRecordsController::class, 'create'])->middleware('role:Admin,Manager')->name('workrecordsCreate');
