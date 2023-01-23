@@ -25,6 +25,14 @@ Route::get('/', function () {
 
 Route::get('users', [UsersController::class, 'index']);
 
+Route::get('users/create', [UsersController::class, 'create']);
+
+Route::post('users/create', [UsersController::class, 'createStore']);
+
+Route::get('users/{id}', [UsersController::class, 'details']);
+
+Route::post('users/{id}', [UsersController::class, 'detailsStore']);
+
 Route::get('workrecords', [WorkRecordsController::class, 'index']);
 
 Route::get('workrecords/create', [WorkRecordsController::class, 'create']);

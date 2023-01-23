@@ -1,5 +1,6 @@
 <h1>Szczegóły ewidencji pracownika</h1>
 <form method="POST" action="/workrecords/{{$showdata->id}}">
+    <p><button type="submit">Dodaj</button></p>
     @csrf
     <h3>Pracownicy:</h3>
 
