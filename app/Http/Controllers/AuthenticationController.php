@@ -4,33 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class AuthenticationController extends Controller
 {
-    public function login(){
+    public function login()
+    {
         return View('login');
     }
 
-    public function loginStore(Request $request){
+    public function loginStore(Request $request)
+    {
         $credentials = $request->validate([
             'login' => 'required',
             'password' => 'required'
         ]);
 
-        // $user = User::where('login');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        Auth::login($credentials);
+            return redirect('/');
+        }
+
+        return back()->withErrors([
+            'login' => 'Login and password are not corrent.',
+        ])->onlyInput('login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
 
         return redirect('login');
-
-        // if (Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-        //     return redirect("welcom");
-        // }
-
-        // return back()->withErrors([
-        //     'login' => 'The provided credentials do not match our records.',
-        // ])->onlyInput('login');
     }
 }

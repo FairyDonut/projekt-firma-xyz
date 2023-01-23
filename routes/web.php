@@ -15,22 +15,27 @@ use App\Http\Controllers\AuthenticationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('login', [AuthenticationController::class, 'login']);
 
-Route::post("login", [AuthenticationController::class, 'loginStore']);
+Route::get('login', [AuthenticationController::class, 'login'])->name('login');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::post('login', [AuthenticationController::class, 'loginStore']);
 
-Route::get('users', [UsersController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-Route::get('workrecords', [WorkRecordsController::class, 'index']);
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
 
-Route::get('workrecords/create', [WorkRecordsController::class, 'create']);
+    Route::get('users', [UsersController::class, 'index'])->middleware('role:Admin')->name('users');
 
-Route::post('workrecords/create', [WorkRecordsController::class, 'createStore']);
+    Route::get('workrecords', [WorkRecordsController::class, 'index'])->middleware('role:Admin,Manager,Worker')->name('workrecords');
 
-Route::get('workrecords/{id}', [WorkRecordsController::class, 'details']);
+    Route::get('workrecords/create', [WorkRecordsController::class, 'create'])->middleware('role:Admin,Manager')->name('workrecordsCreate');
 
-Route::post('workrecords/{id}', [WorkRecordsController::class, 'detailsStore']);
+    Route::post('workrecords/create', [WorkRecordsController::class, 'createStore'])->middleware('role:Admin,Manager');
+
+    Route::get('workrecords/{id}', [WorkRecordsController::class, 'details'])->middleware('role:Admin,Manager,Worker')->name('workrecordsDetails');
+
+    Route::post('workrecords/{id}', [WorkRecordsController::class, 'detailsStore'])->middleware('role:Admin,Manager');
+});
