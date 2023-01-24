@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WorkRecordsController;
+use App\Http\Controllers\WorkRecordCommentsController;
 use App\Http\Controllers\AuthenticationController;
 
 /*
@@ -50,4 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::post('workrecords/{id}', [WorkRecordsController::class, 'detailsStore'])->middleware('role:Admin,Manager');
 
     Route::post('workrecords/{id}/delete', [WorkRecordsController::class, 'deleteStore'])->middleware('role:Admin,Manager');
+
+    Route::post('workrecords/{id}/comment', [WorkRecordCommentsController::class, 'createStore'])->middleware('role:Admin,Manager,Worker');
 });

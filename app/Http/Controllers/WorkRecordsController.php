@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\WorkRecordComment;
 use App\Models\WorkRecord;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -54,11 +55,14 @@ class WorkRecordsController extends Controller
     public function details($id)
     {
         $dane = WorkRecord::find($id);
+        $comments = WorkRecordComment::where('work_record_id', $id)->get();
         $users = User::all();
+
         return view(
             'workRecordDetails',
             [
                 'showdata' => $dane,
+                'comments' => $comments,
                 'users' => $users
             ]
         );
