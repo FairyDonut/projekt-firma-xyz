@@ -8,12 +8,15 @@
 <body>
     <header>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="/">Strona główna</a>
+            <a href="/login">Zaloguj się</a>
+            <a href="/workrecords">Czas pracy pracowników</a>
+            <a href="/users">Użytkownicy</a>
         </nav>
     </header>
-
+    <div class="container">
+        @yield('content')
+    </div>
     <footer>
         <p>Projekt aplikacji firmy XYZ - Julianna Górska</p>
     </footer>

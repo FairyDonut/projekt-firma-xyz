@@ -1,8 +1,5 @@
 @extends('layouts.app')
-@section('content')
-    <p>Hello, world!</p>
-@endsection
 
-<div class="container">
-    @yield('content')
-</div>
+@section('content')
+    <h1>Firma YXZ</h1
+@endsection

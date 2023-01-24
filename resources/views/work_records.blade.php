@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <H1>Czas pracy pracownków:</h1>
 <a href="workrecords/create">Dodaj czas pracy</a>
 <ul>
@@ -16,3 +19,4 @@
         </li>
     @endforeach
 </ul>
+@endsection

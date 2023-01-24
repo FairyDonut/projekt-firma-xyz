@@ -41,6 +41,14 @@
 
     <p><button type="submit">Edytuj</button></p>
 
+    <form method="POST" action="workrecords/{{$showdata->id}}/comment">
+    {{$comments}}
+    <p>
+    <label for="comment">Dodaj komentarz</label>
+    <input type="text" name="comment" id="comment">
+    <button type="submit">Wyślij</button>
+    </p>
+    </form>
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <div>{{ $error }}</div>
