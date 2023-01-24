@@ -8,9 +8,9 @@
     <select name="sender" id="sender">
         @foreach ($users as $user)
         @if ($user->id == $showdata->sender->id)
-        <option value={{$user->id}} selected>{{$user->name}}</option>
+        <option value={{$user->id}} selected>{{$user->firstName}}</option>
     @else
-        <option value={{$user->id}}>{{$user->name}}</option>
+        <option value={{$user->id}}>{{$user->firstName}}</option>
     @endif
         @endforeach
     </select>
@@ -19,9 +19,9 @@
     <select name="worker" id="worker">
         @foreach ($users as $user)\
             @if ($user->id == $showdata->worker->id)
-                <option value={{$user->id}} selected>{{$user->name}}</option>
+                <option value={{$user->id}} selected>{{$user->firstName}}</option>
             @else
-                <option value={{$user->id}}>{{$user->name}}</option>
+                <option value={{$user->id}}>{{$user->firstName}}</option>
             @endif
         @endforeach
     </select>
