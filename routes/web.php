@@ -37,6 +37,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('users/{id}', [UsersController::class, 'detailsStore'])->middleware('role:Admin');
 
+    Route::post('users/{id}/delete', [WorkRecordsController::class, 'deleteStore'])->middleware('role:Admin');
+
     Route::get('workrecords', [WorkRecordsController::class, 'index'])->middleware('role:Admin,Manager,Worker')->name('workrecords');
 
     Route::get('workrecords/create', [WorkRecordsController::class, 'create'])->middleware('role:Admin,Manager')->name('workrecordsCreate');
@@ -46,4 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::get('workrecords/{id}', [WorkRecordsController::class, 'details'])->middleware('role:Admin,Manager,Worker')->name('workrecordsDetails');
 
     Route::post('workrecords/{id}', [WorkRecordsController::class, 'detailsStore'])->middleware('role:Admin,Manager');
+
+    Route::post('workrecords/{id}/delete', [WorkRecordsController::class, 'deleteStore'])->middleware('role:Admin,Manager');
 });

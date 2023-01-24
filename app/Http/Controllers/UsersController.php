@@ -8,19 +8,24 @@ use Illuminate\Support\Carbon;
 
 class UsersController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $users = User::all();
-        return view('users',
-         [
-             'users' => $users
-         ]);
+        return view(
+            'users',
+            [
+                'users' => $users
+            ]
+        );
     }
 
-    public function create(){
+    public function create()
+    {
         return view('usersCreate');
     }
 
-    public function createStore(Request $request){
+    public function createStore(Request $request)
+    {
         $request->validate([
             'login' => 'required|min:3',
             'password' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
@@ -40,15 +45,19 @@ class UsersController extends Controller
         return redirect('users');
     }
 
-     public function details($id){
+    public function details($id)
+    {
         $dane = User::find($id);
-        return view('usersDetails',
-         [
-             'showdata' => $dane
-         ]);
+        return view(
+            'usersDetails',
+            [
+                'showdata' => $dane
+            ]
+        );
     }
 
-    public function detailsStore(Request $request, $id){
+    public function detailsStore(Request $request, $id)
+    {
         $request->validate([
             'login' => 'required|min:3',
             'firstName' => 'required',
@@ -65,6 +74,11 @@ class UsersController extends Controller
 
         return redirect('users');
     }
+
+    public function deleteStore($id)
+    {
+        User::find($id)->delete();
+
+        return redirect('users');
+    }
 }
-
-

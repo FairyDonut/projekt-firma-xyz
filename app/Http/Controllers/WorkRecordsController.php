@@ -9,22 +9,27 @@ use Illuminate\Support\Carbon;
 
 class WorkRecordsController extends Controller
 {
-    public function index(){
-       $list = WorkRecord::all();
-       return view('work_records',
-        [
-            'lista' => $list
-        ]);
+    public function index()
+    {
+        $list = WorkRecord::all();
+        return view(
+            'work_records',
+            [
+                'lista' => $list
+            ]
+        );
     }
 
-    public function create(){
+    public function create()
+    {
         $users = User::all();
-        return view('workRecordsCreate',[
+        return view('workRecordsCreate', [
             'users' => $users
         ]);
     }
 
-    public function createStore(Request $request){
+    public function createStore(Request $request)
+    {
         $request->validate([
             'sender' => 'required',
             'worker' => 'required',
@@ -46,17 +51,21 @@ class WorkRecordsController extends Controller
         return redirect('workrecords');
     }
 
-    public function details($id){
+    public function details($id)
+    {
         $dane = WorkRecord::find($id);
         $users = User::all();
-        return view('workRecordDetails',
-         [
-             'showdata' => $dane,
-             'users' => $users
-         ]);
+        return view(
+            'workRecordDetails',
+            [
+                'showdata' => $dane,
+                'users' => $users
+            ]
+        );
     }
 
-    public function detailsStore(Request $request, $id){
+    public function detailsStore(Request $request, $id)
+    {
         $request->validate([
             'sender' => 'required',
             'worker' => 'required',
@@ -75,6 +84,13 @@ class WorkRecordsController extends Controller
         $work_end = Carbon::parse($request->work_end_date . ' ' . $request->work_end_time);
         $row->work_end = $work_end;
         $row->save();
+
+        return redirect('workrecords');
+    }
+
+    public function deleteStore($id)
+    {
+        WorkRecord::find($id)->delete();
 
         return redirect('workrecords');
     }
