@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <h1>Dodaj ewidencję pracy</h1>
 
 <form method="POST" action="/workrecords/create">
@@ -7,14 +10,14 @@
     <label for="sender">Zlecający:</label>
     <select name="sender" id="sender">
         @foreach ($users as $user)
-            <option value={{$user->id}}>{{$user->name}}</option>
+            <option value={{$user->id}}>{{$user->firstName}}</option>
         @endforeach
     </select>
 
     <label for="worker">Pracownik:</label>
     <select name="worker" id="worker">
         @foreach ($users as $user)
-            <option value={{$user->id}}>{{$user->name}}</option>
+            <option value={{$user->id}}>{{$user->firstName}}</option>
         @endforeach
     </select>
 
@@ -42,3 +45,4 @@
         @endforeach
     @endif
   </form>
+@endsection

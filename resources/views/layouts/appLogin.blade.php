@@ -28,15 +28,6 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <li><a href="/workrecords" class="nav-link">Ewidencja czasu pracy pracowników</a></li>
-                        <li> @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
-                            <a href="/workrecords/create" class="nav-link">Dodaj ewidencję czasu pracy</a>
-                            @endif
-                        </li>
-                        <li> @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
-                            <a href="/users" class="nav-link">Użytkownicy</a>
-                            @endif
-                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> </a>
 
@@ -48,7 +39,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-5 px-5">
+        <main class="py-4">
             @yield('content')
         </main>
     </div>
