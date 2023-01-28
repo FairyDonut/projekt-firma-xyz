@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header h1">Zaloguj się do firmy XYZ</div>
+                <div class="card-header h1 text-center">Zaloguj się do panelu firmy XYZ</div>
                   <div class="card-body">
                     <form method="POST" action="/login">
                         @csrf
