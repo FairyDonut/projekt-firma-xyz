@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Carbon;
 
 class UsersController extends Controller
 {
     public function index()
     {
         $users = User::all();
+
         return view(
             'users',
             [
@@ -48,6 +48,7 @@ class UsersController extends Controller
     public function details($id)
     {
         $dane = User::find($id);
+
         return view(
             'usersDetails',
             [
@@ -78,6 +79,31 @@ class UsersController extends Controller
     public function deleteStore($id)
     {
         User::find($id)->delete();
+
+        return redirect('users');
+    }
+
+    public function password()
+    {
+        return view('userPassword');
+    }
+
+    public function passwordStore(Request $request, $id)
+    {
+        $request->validate([
+            'password1' => 'required||string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+            'password2' => 'required||string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
+        ]);
+
+        if ($request->password1 != $request->password2) {
+            return back()->withErrors([
+                'password2' => 'Passwords do not match.',
+            ])->onlyInput('password2');
+        }
+
+        $row = User::find($id);
+        $row->password = $request->password;
+        $row->save();
 
         return redirect('users');
     }

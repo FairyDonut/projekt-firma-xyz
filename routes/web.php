@@ -38,7 +38,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('users/{id}', [UsersController::class, 'detailsStore'])->middleware('role:Admin');
 
-    Route::post('users/{id}/delete', [WorkRecordsController::class, 'deleteStore'])->middleware('role:Admin');
+    Route::post('users/{id}/delete', [UsersController::class, 'deleteStore'])->middleware('role:Admin');
+
+    Route::get('users/{id}/password', [UsersController::class, 'password'])->middleware('role:Admin');
+
+    Route::post('users/{id}/password', [UsersController::class, 'passwordStore'])->middleware('role:Admin');
 
     Route::get('workrecords', [WorkRecordsController::class, 'index'])->middleware('role:Admin,Manager,Worker')->name('workrecords');
 
