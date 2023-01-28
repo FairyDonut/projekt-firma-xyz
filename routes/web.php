@@ -40,9 +40,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('users/{id}/delete', [UsersController::class, 'deleteStore'])->middleware('role:Admin');
 
-    Route::get('users/{id}/password', [UsersController::class, 'password'])->middleware('role:Admin');
+    Route::get('users/{id}/password', [UsersController::class, 'password'])->middleware('role:Admin')->name('password');
 
     Route::post('users/{id}/password', [UsersController::class, 'passwordStore'])->middleware('role:Admin');
+
+    Route::get('users/{id}/statistics', [UsersController::class, 'statistics'])->middleware('role:Admin,Manager')->name('statistics');
 
     Route::get('workrecords', [WorkRecordsController::class, 'index'])->middleware('role:Admin,Manager,Worker')->name('workrecords');
 

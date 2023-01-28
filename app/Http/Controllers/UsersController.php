@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\WorkRecord;
+use Illuminate\Support\Carbon;
 
 class UsersController extends Controller
 {
@@ -106,5 +108,10 @@ class UsersController extends Controller
         $row->save();
 
         return redirect('users');
+    }
+
+    public function statistics($id)
+    {
+        //$monthRecords = WorkRecord::where('worker_id', $id)->where()
     }
 }
