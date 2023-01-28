@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -104,7 +105,7 @@ class UsersController extends Controller
         }
 
         $row = User::find($id);
-        $row->password = $request->password1;
+        $row->password = Hash::make($request->password1);
         $row->save();
 
         return redirect('users');
