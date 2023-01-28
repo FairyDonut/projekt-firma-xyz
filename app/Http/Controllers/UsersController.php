@@ -83,16 +83,18 @@ class UsersController extends Controller
         return redirect('users');
     }
 
-    public function password()
+    public function password($id)
     {
-        return view('userPassword');
+        return view('userPassword', [
+            'id' => $id
+        ]);
     }
 
     public function passwordStore(Request $request, $id)
     {
         $request->validate([
-            'password1' => 'required||string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
-            'password2' => 'required||string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
+            'password1' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+            'password2' => 'required|string|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/'
         ]);
 
         if ($request->password1 != $request->password2) {
