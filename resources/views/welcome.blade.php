@@ -27,7 +27,7 @@
             <div class="card-body">
               <h5 class="card-title">Dodaj nowych pracowników do firmy!</h5>
               <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <p>@if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
+                <p>@if (Auth::user()->role=="Admin")
                 <a href="/users/create" class="btn btn-primary">Dodaj pracownika</a></p>
                 @else <p class="btn btn-danger">Nie masz uprawnień, zgłoś się do administratora</p>
                 @endif

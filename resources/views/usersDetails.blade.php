@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header h1">Szczegóły pracownika {{ $showdata->firstName }} {{ $showdata->lastName }}</div>
+                <div class="card-header h1 text-center">Szczegóły pracownika {{ $showdata->firstName }} {{ $showdata->lastName }}</div>
                 <div class="card-body">
                     <form method="POST" action="/users/{{ $showdata->id }}">
                         @csrf
@@ -47,9 +47,18 @@
                             @endforeach
                         @endif
                     </form>
+                    <div class="row mb-2">
+                        <div class="col-md-8 offset-md-4">
+                            @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
+                            <a href="{{$showdata->id}}/statistics" class="btn btn-primary">Statystyki pracy</a>
+                            @endif
+                        </div>
+                    </div>
                     <div class="row mb-0">
                         <div class="col-md-8 offset-md-4">
+                            @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
                             <a href="/users/{{ $showdata->id }}/password" class="btn btn-primary">Zmień hasło</a>
+                            @endif
                         </div>
                     </div>
                 </div>

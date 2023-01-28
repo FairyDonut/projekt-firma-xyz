@@ -75,7 +75,9 @@
                             </div>
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
+                                    @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
                                     <button type="submit" class="btn btn-primary">Edytuj</button>
+                                    @endif
                                 </div>
                             </div>
 

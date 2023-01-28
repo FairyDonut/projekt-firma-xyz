@@ -33,7 +33,7 @@
                             <a href="/workrecords/create" class="nav-link">Dodaj ewidencję czasu pracy</a>
                             @endif
                         </li>
-                        <li> @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
+                        <li> @if (Auth::user()->role=="Admin")
                             <a href="/users" class="nav-link">Użytkownicy</a>
                             @endif
                         </li>

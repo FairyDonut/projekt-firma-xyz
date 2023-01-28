@@ -20,7 +20,9 @@
             <a href="/workrecords/{{$record -> id}}" class="btn btn-primary">Szczegóły</a>
             <form method="POST" action="/workrecords/{{ $record->id }}/delete">
                 @csrf
+                @if (Auth::user()->role=="Admin" || Auth::user()->role=="Manager")
                 <button type="submit" class="btn btn-primary">Usuń</button>
+            @endif
             </form>
             </p>
         </li>

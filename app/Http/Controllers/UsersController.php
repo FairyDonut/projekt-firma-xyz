@@ -40,7 +40,7 @@ class UsersController extends Controller
 
         $row = new User();
         $row->login = $request->login;
-        $row->password = $request->password;
+        $row->password = Hash::make($request->password);
         $row->firstName = $request->firstName;
         $row->lastName = $request->lastName;
         $row->role = $request->role;
