@@ -116,25 +116,30 @@ class UsersController extends Controller
 
     public function statistics($id)
     {
-        $monthRecords = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addMonths(-1))->get();
-        $weekRecords = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addWeeks(-1))->get();
-        $dayRecords = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addDays(-1))->get();
+        $user = User::find($id);
 
-        $monthRecordsHours = $this->calculateHours($monthRecords);
-        error_log($monthRecordsHours);
+        $wrByMonth = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addMonths(-1))->get();
+        $wrByWeek = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addWeeks(-1))->get();
+        $wrByDay = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addDays(-1))->get();
 
-        // error_log($monthRecords);
-        // error_log($weekRecords);
-        // error_log($dayRecords);
+        $wrByMonthMinutes = $this->calculateMinutesOfWork($wrByMonth);
+        $wrByWeekMinutes = $this->calculateMinutesOfWork($wrByWeek);
+        $wrByDayMinutes = $this->calculateMinutesOfWork($wrByDay);
+
+        $wrByMonthTime = $this->createTimeText($wrByMonthMinutes);
+        $wrByWeekTime = $this->createTimeText($wrByWeekMinutes);
+        $wrByDayTime = $this->createTimeText($wrByDayMinutes);
+
 
         return view('userStatistics', [
-            'monthRecords' => 0,
-            'weekRecords' => 0,
-            'dayRecords' => 0
+            'user' => $user,
+            'monthRecords' => $wrByMonthTime,
+            'weekRecords' => $wrByWeekTime,
+            'dayRecords' => $wrByDayTime
         ]);
     }
 
-    private function calculateHours(Collection $workRecords)
+    private function calculateMinutesOfWork(Collection $workRecords)
     {
         $result = 0;
 
@@ -142,15 +147,20 @@ class UsersController extends Controller
             $start = Carbon::parse($wr->work_start);
             $end = Carbon::parse($wr->work_end);
 
-            error_log($start);
-            error_log($end);
-
             $sum = $end->diffInMinutes($start);
-
-            error_log($sum);
 
             $result += $sum;
         }
+
+        return $result;
+    }
+
+    private function createTimeText(int $minutes)
+    {
+        $h = floor($minutes / 60);
+        $m = $minutes % 60;
+
+        $result = $h . "h " . $m . "min";
 
         return $result;
     }
