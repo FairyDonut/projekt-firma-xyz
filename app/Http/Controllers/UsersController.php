@@ -113,6 +113,8 @@ class UsersController extends Controller
 
     public function statistics($id)
     {
+        $user = User::find($id);
+
         $wrByMonth = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addMonths(-1))->get();
         $wrByWeek = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addWeeks(-1))->get();
         $wrByDay = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addDays(-1))->get();
@@ -127,6 +129,7 @@ class UsersController extends Controller
 
 
         return view('userStatistics', [
+            'user' => $user,
             'monthRecords' => $wrByMonthTime,
             'weekRecords' => $wrByWeekTime,
             'dayRecords' => $wrByDayTime
