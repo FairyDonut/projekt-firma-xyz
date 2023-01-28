@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\WorkRecord;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class UsersController extends Controller
 {
@@ -112,6 +113,42 @@ class UsersController extends Controller
 
     public function statistics($id)
     {
-        //$monthRecords = WorkRecord::where('worker_id', $id)->where()
+        $monthRecords = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addMonths(-1))->get();
+        $weekRecords = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addWeeks(-1))->get();
+        $dayRecords = WorkRecord::where('worker_id', $id)->where('work_start', '>', Carbon::now()->addDays(-1))->get();
+
+        $monthRecordsHours = $this->calculateHours($monthRecords);
+        error_log($monthRecordsHours);
+
+        // error_log($monthRecords);
+        // error_log($weekRecords);
+        // error_log($dayRecords);
+
+        return view('userStatistics', [
+            'monthRecords' => 0,
+            'weekRecords' => 0,
+            'dayRecords' => 0
+        ]);
+    }
+
+    private function calculateHours(Collection $workRecords)
+    {
+        $result = 0;
+
+        foreach ($workRecords as $wr) {
+            $start = Carbon::parse($wr->work_start);
+            $end = Carbon::parse($wr->work_end);
+
+            error_log($start);
+            error_log($end);
+
+            $sum = $end->diffInMinutes($start);
+
+            error_log($sum);
+
+            $result += $sum;
+        }
+
+        return $result;
     }
 }
