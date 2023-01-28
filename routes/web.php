@@ -54,7 +54,3 @@ Route::middleware('auth')->group(function () {
 
     Route::post('workrecords/{id}/comment', [WorkRecordCommentsController::class, 'createStore'])->middleware('role:Admin,Manager,Worker');
 });
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
