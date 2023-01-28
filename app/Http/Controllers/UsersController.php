@@ -102,7 +102,7 @@ class UsersController extends Controller
         }
 
         $row = User::find($id);
-        $row->password = $request->password;
+        $row->password = $request->password1;
         $row->save();
 
         return redirect('users');
