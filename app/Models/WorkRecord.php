@@ -9,12 +9,13 @@ class WorkRecord extends Model
 {
     use HasFactory;
 
-    public function sender(){
+    public function sender()
+    {
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    public function worker(){
+    public function worker()
+    {
         return $this->belongsTo(User::class, 'worker_id');
     }
-
 }
